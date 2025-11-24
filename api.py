@@ -5,7 +5,7 @@ def search():
     number = input.cget(f"https://xkcd.com/{input}/info.0.json")
     print(number)
 
-window = tk.Tk()
+""" window = tk.Tk()
 window.title("API")
 window.geometry("1200x750")
 window.resizable(False, False)
@@ -17,4 +17,4 @@ searchbox.pack(pady=5)
 search = tk.Button(window, text = "Search",
 font = ("Arial", 14), command = search)
 search.pack(pady = 10)
-window.mainloop()
+window.mainloop() """
