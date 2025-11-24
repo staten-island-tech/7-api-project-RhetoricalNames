@@ -1,25 +1,20 @@
 import tkinter as tk
 
-response = Unirest.get("https://wordsapiv1.p.mashape.com/words/soliloquy",
-  headers={
-    "X-Mashape-Key": "<required>",
-    "Accept": "application/json"
-  }
-)
-def definition():
-    text = entry.get()
+ 
+def search():
+    number = input.cget(f"https://xkcd.com/{input}/info.0.json")
+    print(number)
 
 window = tk.Tk()
-window.title("Cipher")
+window.title("API")
 window.geometry("1200x750")
 window.resizable(False, False)
-prompt = tk.Label(window, text = "Type something to encode")
+input = tk.Label(window, text = "Type a comic number")
 font = ("Arial", 14)
-prompt.pack(pady = 10)
-prompt.pack(pady = 10)
-entry = tk.Entry(window, font = ("Arial", 14), width = 30)
-entry.pack(pady=5)
-definition = tk.Button(window, text = "Definition",
-font = ("Arial", 14), command = definition)
-definition.pack(pady = 10)
+input.pack(pady = 10)
+searchbox = tk.Entry(window, font = ("Arial", 14), width = 30)
+searchbox.pack(pady=5)
+search = tk.Button(window, text = "Search",
+font = ("Arial", 14), command = search)
+search.pack(pady = 10)
 window.mainloop()
