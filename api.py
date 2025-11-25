@@ -1,8 +1,8 @@
 import tkinter as tk
-
+import requests
  
-def search():
-    number = input.cget(f"https://xkcd.com/{input}/info.0.json")
+def search(input):
+    number = requests.get(f"https://xkcd.com/{input}/info.0.json")
     print(number)
 
 """ window = tk.Tk()
@@ -18,3 +18,4 @@ search = tk.Button(window, text = "Search",
 font = ("Arial", 14), command = search)
 search.pack(pady = 10)
 window.mainloop() """
+search(1)
