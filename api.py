@@ -16,14 +16,15 @@ number = tk.IntVar()
 searchbox = tk.Entry(window, font = ("Arial", 14), width = 30, textvariable=number)
 searchbox.pack(pady = 5)
 
-Toutput = tk.Label(window, text="", pady= 10, fg="black", font="Arial, 11", wraplength=500)
+Uoutput = tk.Label(window, text="", fg="black", font=("Times New Roman", 14), wraplength=500)
+Uoutput.pack(pady=20)
 
 def search():
-    search = searchbox.get()
-    comic = requests.get(f"https://xkcd.com/{search}/info.0.json")
+    Uinput = searchbox.get()
+    comic = requests.get(f"https://api.chess.com/pub/player/{Uinput}")
     transcript = comic.json()
     print(transcript)
-    Toutput.config(text=transcript)
+    Uoutput.config(text=transcript, bg= "SteelBlue")
 
 search_button = tk.Button(window, text = "Search",
 font = ("Arial", 14), bg= "SteelBlue", fg= "White", command = search)
