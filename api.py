@@ -19,14 +19,16 @@ searchbox.pack(pady = 5)
 Toutput = tk.Label(window, text="", fg="black", font=("Times New Roman", 14), wraplength=500)
 Toutput.pack(pady=20)
 
-Ioutput = tk.Label(window, image=) #image
+Ioutput = tk.PhotoImage()
 
 def search():
     input = searchbox.get()
     user = requests.get(f"https://xkcd.com/{input}/info.0.json")
     stats = user.json()
     Toutput.config(text=stats, bg= "SteelBlue")
-    stats['img']
+    Ioutput.config(file=requests.get(dict(stats)['img']))
+    print(dict(stats)['img'])
+
 
 search_button = tk.Button(window, text = "Search",
 font = ("Arial", 14), bg= "SteelBlue", fg= "White", command = search)
