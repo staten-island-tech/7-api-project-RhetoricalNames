@@ -21,25 +21,27 @@ searchbox.pack(pady = 5)
 Toutput = tk.Label(window, text="", fg="black", font=("Times New Roman", 14), wraplength=500)
 Toutput.pack(pady=20)
 
-def search():
+def search_transcript():
     input = searchbox.get()
     user = requests.get(f"https://xkcd.com/{input}/info.0.json")
     stats = user.json()
-    Toutput.config(text=stats, bg= "SteelBlue")
+    Toutput.config(text=stats['transcript'], bg= "SteelBlue")
 
+def search_image():
+    input = searchbox.get()
+    user = requests.get(f"https://xkcd.com/{input}/info.0.json")
+    stats = user.json()
     response = requests.get(dict(stats)['img'])
     img_data = response.content
-    print(img_data)
     pillow_image = Image.open(BytesIO(img_data))
-    print(pillow_image)
     tk_image = ImageTk.PhotoImage(pillow_image)
-    print(tk_image)
     Ioutput = tk.Label(image = tk_image)
     Ioutput.pack()
 
 
-
-search_button = tk.Button(window, text = "Search",
-font = ("Arial", 14), bg= "SteelBlue", fg= "White", command = search)
+search_button = tk.Button(window, text="Search for transcript",
+font = ("Arial", 14), bg= "SteelBlue", fg= "White", command = search_transcript)
 search_button.pack(pady = 10)
+image_button = tk.Button(window, text="Search for image", font = ("Arial", 14), bg= "SteelBlue", fg= "White", command = search_image)
+image_button.pack(pady=20)
 window.mainloop()
