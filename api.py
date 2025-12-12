@@ -11,7 +11,7 @@ window.title("API")
 window.geometry("1200x750")
 window.resizable(False, False)
 
-instructions = tk.Label(window, text = "Type a number")
+instructions = tk.Label(window, text = "Type a number", font= ("Arial", 18))
 instructions.pack(pady = 10)
 
 username = tk.IntVar()
@@ -25,7 +25,13 @@ def search_transcript():
     input = searchbox.get()
     user = requests.get(f"https://xkcd.com/{input}/info.0.json")
     stats = user.json()
-    Toutput.config(text=stats['transcript'], bg= "SteelBlue")
+    Toutput.config(text=stats['transcript'])
+
+def other_stats():
+    input = searchbox.get()
+    user = requests.get(f"https://xkcd.com/{input}/info.0.json")
+    stats = user.json()
+    Toutput.config(text=f"Year: {stats['year']}, Month: {stats['month']}")
 
 def search_image():
     input = searchbox.get()
@@ -39,9 +45,10 @@ def search_image():
     Ioutput.pack()
 
 
-search_button = tk.Button(window, text="Search for transcript",
-font = ("Arial", 14), bg= "SteelBlue", fg= "White", command = search_transcript)
-search_button.pack(pady = 10)
-image_button = tk.Button(window, text="Search for image", font = ("Arial", 14), bg= "SteelBlue", fg= "White", command = search_image)
+search_button = tk.Button(window, text="Search for transcript", font = ("Times New Roman", 14), bg= "SteelBlue", fg= "White", command = search_transcript)
+search_button.pack(pady=10)
+image_button = tk.Button(window, text="Search for image", font = ("Times New Roman", 14), bg= "SteelBlue", fg= "White", command = search_image)
 image_button.pack(pady=20)
+stats_button = tk.Button(window, text="Other information", font = ("Times New Roman", 14), bg= "SteelBlue", fg= "White", command = other_stats)
+stats_button.pack(pady=20)
 window.mainloop()
