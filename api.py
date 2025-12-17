@@ -5,54 +5,55 @@ from io import BytesIO
 
 #cd app
 #Scripts\Activate.ps1
-#https://newton.vercel.app/
-#yes i spent the entire period looking for a new api
 
 window = tk.Tk()
-window.title("Calculator")
+window.title("F2P game discovery")
 window.geometry("1200x750")
 window.resizable(False, False)
 
-instructions = tk.Label(window, text = "Enter an expression", font= ("Arial", 16))
+instructions = tk.Label(window, text = "Type the name of a free game", font= ("Arial", 15))
 instructions.pack(pady = 10)
 
-username = tk.IntVar()
+username = tk.StringVar()
 searchbox = tk.Entry(window, font = ("Arial", 14), width = 30, textvariable=username)
 searchbox.pack(pady = 5)
 
 output = tk.Label(window, text="", fg="black", font=("Times New Roman", 14), wraplength=500)
 output.pack(pady=20)
 
-def calculate():
-    input = searchbox.get()
-    user = requests.get(f"https://newton.vercel.app/{input}")
-    stats = user.json()
-    output.config(text=stats['transcript'])
+def stats():
+    if input not in requests.get("https://www.freetogame.com/api/games"["title"]):
+        output.config(text="Game not in database")
+    else:
+        input = searchbox.get()
+        info = requests.get(f"https://www.freetogame.com/api/games{input}")
+        stats = info.json()
+        output.config(text=f"Title: {stats["title"]}, status: {stats["status"]}")
 
-""" def other_stats():
+def performance():
     input = searchbox.get()
-    user = requests.get(f"https://xkcd.com/{input}/info.0.json")
+    user = requests.get(f"https://www.freetogame.com/api/games/{input}")
     stats = user.json()
-    Toutput.config(text=f"Year: {stats['year']}, Month: {stats['month']}")
+    output.config(text=f"Year: {stats['year']}, Month: {stats['month']}")
 
-def search_image():
+def images():
     input = searchbox.get()
-    user = requests.get(f"https://xkcd.com/{input}/info.0.json")
-    stats = user.json()
-    response = requests.get(stats['img'])
+    user = requests.get(f"https://www.freetogame.com/api/games/{input}")
+    image = user.json()
+    response = requests.get(image["screenshots"][0])
     response.raise_for_status()
     pillow_image = Image.open(BytesIO(response.content))
     tk_image = ImageTk.PhotoImage(pillow_image)
     tk_image.thumbnail((300, 200), Image.LANCZOS)
     Ioutput = tk.Label(image = tk_image)
     Ioutput.image = tk_image
-    Ioutput.pack() """
+    Ioutput.pack()
 
 
-search_button = tk.Button(window, text="Search for transcript", font = ("Arial", 14), bg= "SteelBlue", fg= "White", command = calculate)
+search_button = tk.Button(window, text="Search for name", font = ("Arial", 14), bg= "SteelBlue", fg= "White", command = stats)
 search_button.pack(pady=10)
-""" image_button = tk.Button(window, text="Search for image", font = ("Arial", 14), bg= "SteelBlue", fg= "White", command = search_image)
+image_button = tk.Button(window, text="Screenshots", font = ("Arial", 14), bg= "SteelBlue", fg= "White", command = images)
 image_button.pack(pady=20)
-stats_button = tk.Button(window, text="Other information", font = ("Arial", 14), bg= "SteelBlue", fg= "White", command = other_stats)
-stats_button.pack(pady=20) """
+stats_button = tk.Button(window, text="Performance information", font = ("Arial", 14), bg= "SteelBlue", fg= "White", command = performance)
+stats_button.pack(pady=20)
 window.mainloop() 
