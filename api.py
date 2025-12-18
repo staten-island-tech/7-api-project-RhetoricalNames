@@ -21,10 +21,9 @@ searchbox.pack(pady = 5)
 output = tk.Label(window, text="", fg="black", font=("Times New Roman", 14), wraplength=500)
 output.pack(pady=20)
 
-def stats():
-    if input not in requests.get(f"https://www.freetogame.com/api/games/{["game_url"]}"):
-        output.config(text="Game not found.")
-        print(input.get())
+def find_statistics():
+    if input != requests.get(f"https://www.freetogame.com/open/{input}{["title"]}"):
+        output.config(text="Game not found. Please try again.")
     else:
         info = requests.get(f"https://www.freetogame.com/api/games{input}")
         stats = info.json()
@@ -48,7 +47,7 @@ def images():
     Ioutput.pack()
 
 
-search_button = tk.Button(window, text="Search via name", font = ("Arial", 14), bg= "SteelBlue", fg= "White", command = stats)
+search_button = tk.Button(window, text="Search via name", font = ("Arial", 14), bg= "SteelBlue", fg= "White", command = find_statistics)
 search_button.pack(pady=10)
 image_button = tk.Button(window, text="Screenshots", font = ("Arial", 14), bg= "SteelBlue", fg= "White", command = images)
 image_button.pack(pady=20)
