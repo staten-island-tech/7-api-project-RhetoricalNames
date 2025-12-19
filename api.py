@@ -14,28 +14,33 @@ window.resizable(False, False)
 instructions = tk.Label(window, text = "Type the name of a game", font= ("Arial", 15))
 instructions.pack(pady = 10)
 
-input = tk.StringVar()
-searchbox = tk.Entry(window, font = ("Arial", 14), width = 20, textvariable=input)
+userinput = tk.StringVar()
+searchbox = tk.Entry(window, font = ("Arial", 14), width = 20, textvariable=userinput)
 searchbox.pack(pady = 5)
 
 output = tk.Label(window, text="", fg="black", font=("Times New Roman", 14), wraplength=500)
 output.pack(pady=20)
 
+def validate_input():
+
 def find_statistics():
-    if input != requests.get(f"https://www.freetogame.com/open/{input}{["title"]}"):
-        output.config(text="Game not found. Please try again.")
-    else:
-        info = requests.get(f"https://www.freetogame.com/api/games{input}")
-        stats = info.json()
-        output.config(text=f"Title: {stats["title"]}, status: {stats["status"]}")
+    gametitle = userinput.get()
+    info = requests.get("https://www.freetogame.com/api/games")
+    games_stats = info.json()
+    for game in games_stats:
+        if game["title"].lower() == gametitle.lower():
+            output.config(
+                text=f"Title: {game['title']}")
+            return
+    output.config(text="Output not found. Please try again.")
 
 def performance():
-    user = requests.get(f"https://www.freetogame.com/api/games/{input}")
-    stats = user.json()
-    output.config(text=f"{stats["minimum_system_requirements"]}")
+    user = requests.get(f"https://www.freetogame.com/api/games/{userinput}")
+    games_stats = user.json()
+    output.config(text=f"{games_stats["minimum_system_requirements"]}")
 
 def images():
-    user = requests.get(f"https://www.freetogame.com/api/games/{input}")
+    user = requests.get(f"https://www.freetogame.com/api/games/{userinput}")
     image = user.json()
     response = requests.get(image["screenshots"][0])
     response.raise_for_status()
