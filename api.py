@@ -60,6 +60,11 @@ def images():
     Ioutput.pack()
 
 def random_search():
+    data = requests.get("https://www.freetogame.com/api/games")
+    random_number = random.randint(1, len(data.json()))
+    data = data.json()
+    game_data = requests.get(f"https://www.freetogame.com/api/game?id={data[random_number]["id"]}")
+    output.config(text=f"'{game_data["title"]}' Short description:")
     
 
 
@@ -70,5 +75,5 @@ image_button.pack(pady=10)
 stats_button = tk.Button(window, text="Performance information", font = ("Arial", 14), bg= "SteelBlue", fg= "White", command = performance)
 stats_button.pack(pady=10)
 random_search_button = tk.Button(window, text="Random game", font = ("Arial", 14), bg= "SteelBlue", fg= "White", command = random_search)
-stats_button.pack(pady=10)
+random_search_button.pack(pady=20)
 window.mainloop() 
