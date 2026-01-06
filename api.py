@@ -11,15 +11,15 @@ window = tk.Tk()
 window.title("F2P game discovery")
 window.geometry("1200x750")
 window.resizable(False, False)
+window.config(bg="light gray")
 
-instructions = tk.Label(window, text = "Select a random game, than find more about it!", font= ("Arial", 15))
-instructions.pack(pady = 10)
-
-title_output = tk.Label(window, text="", font= ("Times New Roman", 12))
+instructions = tk.Label(window, text = "Select a random game, than find more about it!", font= ("Arial", 15), bg="light gray")
+instructions.pack(pady=10)
+title_output = tk.Label(window, text="", font= ("Times New Roman", 12), bg="light gray")
 title_output.pack(pady=5)
-output = tk.Label(window, text="", fg="black", font=("Times New Roman", 14), wraplength=500)
+output = tk.Label(window, text="", bg="light gray", font=("Times New Roman", 14), wraplength=500)
 output.pack(pady=20)
-Ioutput = tk.Label(image="")
+Ioutput = tk.Label(image="", bg="light gray")
 Ioutput.pack(pady=10)
 game_data = ""
 
