@@ -25,6 +25,7 @@ game_data = ""
 
 def random_search():
     Ioutput.config(image="")
+    output.config(text="")
     data = requests.get("https://www.freetogame.com/api/games")
     random_number = random.randint(1, len(data.json()))
     data = data.json()
@@ -57,7 +58,7 @@ def info():
     if game_data == "":
         output.config(text="Game not selected!")
         return
-    output.config(text=f"Developer: {game_data["developer"]}\nPublisher: {game_data["publisher"]}\nShort description: '{game_data["short_description"]}'\ngenre: '{game_data["genre"]}'\ndeveloper: '{game_data["developer"]}'\nGame link: {game_data["game_url"]}")
+    output.config(text=f"Developer: {game_data["developer"]}\nPublisher: {game_data["publisher"]}\nShort description: '{game_data["short_description"]}'\ngenre: '{game_data["genre"]}'\nGame link: {game_data["game_url"]}")
 
 random_search_button = tk.Button(window, text="Random game", font = ("Arial", 14), bg= "SteelBlue", fg= "White", command = random_search)
 random_search_button.pack(pady=10)
